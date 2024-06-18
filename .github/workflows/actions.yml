@@ -12,9 +12,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3  # Update to the latest version
+    - uses: actions/checkout@v3
     - name: Set up Python 3.8
-      uses: actions/setup-python@v4  # Use the latest version to support Node.js 20
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Install dependencies
@@ -26,7 +26,7 @@ jobs:
         python scripts/process_worldwide.py
         python scripts/process_us.py
     - name: Commit files
-      uses: stefanzweifel/git-auto-commit-action@v4  # Alternative to ad-m/github-push-action
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Auto-update of the data packages"
         commit_user_name: GitHub Action
@@ -37,10 +37,10 @@ jobs:
     needs: update
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3  # Update to the latest version
-    - uses: actions/setup-node@v4  # Use the latest version to support Node.js 20
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: '18.x'  # Use a more recent LTS version
+        node-version: '20.x'  # Explicitly specify Node.js 20
     - name: Install data-cli and init package
       run: |
         npm install -g data-cli
