@@ -26,14 +26,10 @@ jobs:
         python scripts/process_worldwide.py
         python scripts/process_us.py
     - name: Commit files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit --allow-empty -m "Auto-update of the data packages" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@v0.6.0  # Specify a stable version
+      uses: github-actions-x/commit@v3  # Alternative to ad-m/github-push-action
       with:
-        github_token: ${{ secrets.gh }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        commit_message: "Auto-update of the data packages"
 
   deploy:
     needs: update
@@ -53,8 +49,6 @@ jobs:
         python scripts/update_datapackage.py
         data push
       env:
-        id: ${{secrets.dhid}}
-        username: ${{secrets.dhusername}}
-        token: ${{secrets.dhtoken}}
-
-
+        id: ${{ secrets.dhid }}
+        username: ${{ secrets.dhusername }}
+        token: ${{ secrets.dhtoken }}
