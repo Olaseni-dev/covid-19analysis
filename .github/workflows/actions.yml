@@ -26,10 +26,12 @@ jobs:
         python scripts/process_worldwide.py
         python scripts/process_us.py
     - name: Commit files
-      uses: github-actions-x/commit@v3  # Alternative to ad-m/github-push-action
+      uses: stefanzweifel/git-auto-commit-action@v4  # Alternative to ad-m/github-push-action
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
         commit_message: "Auto-update of the data packages"
+        commit_user_name: GitHub Action
+        commit_user_email: action@github.com
+        branch: main
 
   deploy:
     needs: update
